@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart - AI-Powered Crop Recommendation System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="gradient-bg py-6 px-4 shadow-lg" style="color: var(--primary-foreground);">
+            <div class="container">
+                <div class="flex items-center gap-3 mb-2">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <h1 class="text-3xl font-bold">AgriSmart</h1>
+                </div>
+                <p class="text-lg opacity-90">AI-Powered Crop Recommendation System</p>
+            </div>
+        </header>
+
+        <main class="container p-4 md:p-6 lg:p-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Input Form -->
+                <div class="card shadow-lg">
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <svg class="text-primary w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                            </svg>
+                            <h2 class="text-2xl font-semibold">Environmental Parameters</h2>
+                        </div>
+                        
+                        <form id="cropForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                
+                                <!-- Rainfall Input -->
+                                <div>
+                                    <label class="label">
+                                        <svg class="text-blue-500 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.002 4.002 0 003 15z"/>
+                                        </svg>
+                                        Rainfall (mm/year)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="rainfall"
+                                        name="rainfall"
+                                        placeholder="e.g. 1200"
+                                        step="0.1"
+                                        min="0"
+                                        max="5000"
+                                        class="input"
+                                        data-testid="input-rainfall"
+                                        required
+                                    />
+                                    <p class="text-xs text-muted-foreground mt-1">Annual rainfall in millimeters</p>
+                                    <div class="form-error" id="rainfall-error"></div>
+                                </div>
+
+                                <!-- Humidity Input -->
+                                <div>
+                                    <label class="label">
+                                        <svg class="text-blue-400 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                        </svg>
+                                        Humidity (%)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="humidity"
+                                        name="humidity"
+                                        placeholder="e.g. 65"
+                                        step="0.1"
+                                        min="0"
+                                        max="100"
+                                        class="input"
+                                        data-testid="input-humidity"
+                                        required
+                                    />
+                                    <p class="text-xs text-muted-foreground mt-1">Relative humidity percentage</p>
+                                    <div class="form-error" id="humidity-error"></div>
+                                </div>
+
+                                <!-- Temperature Input -->
+                                <div>
+                                    <label class="label">
+                                        <svg class="text-red-500 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                                        Temperature (°C)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="temperature"
+                                        name="temperature"
+                                        placeholder="e.g. 25"
+                                        step="0.1"
+                                        min="-10"
+                                        max="50"
+                                        class="input"
+                                        data-testid="input-temperature"
+                                        required
+                                    />
+                                    <p class="text-xs text-muted-foreground mt-1">Average temperature in Celsius</p>
+                                    <div class="form-error" id="temperature-error"></div>
+                                </div>
+
+                                <!-- Phosphorus Input -->
+                                <div>
+                                    <label class="label">
+                                        <svg class="text-purple-500 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                                        </svg>
+                                        Phosphorus (mg/kg)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="phosphorus"
+                                        name="phosphorus"
+                                        placeholder="e.g. 45"
+                                        step="0.1"
+                                        min="0"
+                                        max="500"
+                                        class="input"
+                                        data-testid="input-phosphorus"
+                                        required
+                                    />
+                                    <p class="text-xs text-muted-foreground mt-1">Phosphorus content in soil</p>
+                                    <div class="form-error" id="phosphorus-error"></div>
+                                </div>
+
+                                <!-- Nitrogen Input -->
+                                <div class="md:col-span-2">
+                                    <label class="label">
+                                        <svg class="text-green-500 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                        </svg>
+                                        Nitrogen (mg/kg)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="nitrogen"
+                                        name="nitrogen"
+                                        placeholder="e.g. 75"
+                                        step="0.1"
+                                        min="0"
+                                        max="500"
+                                        class="input"
+                                        data-testid="input-nitrogen"
+                                        required
+                                    />
+                                    <p class="text-xs text-muted-foreground mt-1">Nitrogen content in soil</p>
+                                    <div class="form-error" id="nitrogen-error"></div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button 
+                                type="submit" 
+                                class="button button-primary w-full"
+                                id="submitBtn"
+                                data-testid="button-submit"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                                Get Crop Recommendations
+                            </button>
+
+                            <!-- Error Display -->
+                            <div class="alert alert-destructive hidden" id="generalError" data-testid="alert-error">
+                                <div id="errorMessage">Failed to get recommendations. Please try again.</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Results Display -->
+                <div class="card shadow-lg">
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <svg class="text-primary w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            <h2 class="text-2xl font-semibold">Recommendations</h2>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="text-center py-12" id="emptyState" data-testid="state-empty">
+                            <svg class="w-16 h-16 text-muted-foreground opacity-50 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <h3 class="text-lg font-medium text-muted-foreground mb-2">No Recommendations Yet</h3>
+                            <p class="text-muted-foreground">Fill in the environmental parameters to get AI-powered crop recommendations.</p>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div class="text-center py-12 hidden" id="loadingState" data-testid="state-loading">
+                            <svg class="w-16 h-16 text-primary mx-auto mb-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            <h3 class="text-lg font-medium mb-2">Analyzing Environmental Data</h3>
+                            <p class="text-muted-foreground">Our AI is processing your soil and climate conditions...</p>
+                        </div>
+
+                        <!-- Results State -->
+                        <div class="fade-in hidden" id="resultsState" data-testid="state-results">
+                            <!-- Results will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="card mt-8 shadow-lg">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                        <svg class="text-yellow-500 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                        How It Works
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="text-primary w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-medium mb-2">1. Input Parameters</h4>
+                            <p class="text-sm text-muted-foreground">
+                                Enter your soil and climate data including rainfall, humidity, temperature, and nutrient levels.
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="text-primary w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-medium mb-2">2. AI Analysis</h4>
+                            <p class="text-sm text-muted-foreground">
+                                Our advanced AI analyzes your data against crop requirements and historical agricultural patterns.
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="text-primary w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-medium mb-2">3. Get Recommendations</h4>
+                            <p class="text-sm text-muted-foreground">
+                                Receive personalized crop recommendations with yield estimates and growing tips.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-muted/30 mt-12 py-8 px-4">
+            <div class="container text-center">
+                <p class="text-muted-foreground flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Powered by AI technology for accurate crop recommendations
+                </p>
+                <p class="text-sm text-muted-foreground mt-2">© 2024 AgriSmart. Helping farmers make informed decisions.</p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+<script src="script.js"></script>
+</html>
